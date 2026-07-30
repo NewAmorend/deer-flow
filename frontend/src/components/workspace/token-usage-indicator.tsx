@@ -29,6 +29,7 @@ import {
 import type { ContextUsage } from "@/core/threads/token-usage";
 import { cn } from "@/lib/utils";
 
+import { ContextUsageBreakdown } from "./context-usage-breakdown";
 import { formatContextUsagePercentage } from "./context-usage-format";
 
 interface TokenUsageIndicatorProps {
@@ -105,7 +106,7 @@ export function TokenUsageIndicator({
           <ChevronDownIcon className="size-3" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent side="bottom" align="end" className="w-80">
+      <DropdownMenuContent side="bottom" align="end" className="w-96">
         <DropdownMenuLabel>{t.tokenUsage.title}</DropdownMenuLabel>
         <div className="px-2 py-1 text-xs">
           {usage ? (
@@ -137,6 +138,12 @@ export function TokenUsageIndicator({
             </div>
           )}
         </div>
+        {contextUsage && contextUsage.breakdown.length > 0 && (
+          <>
+            <DropdownMenuSeparator />
+            <ContextUsageBreakdown contextUsage={contextUsage} />
+          </>
+        )}
         <DropdownMenuSeparator />
         <DropdownMenuLabel>{t.tokenUsage.view}</DropdownMenuLabel>
         <DropdownMenuRadioGroup
